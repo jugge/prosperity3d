@@ -2,11 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Time (e.g. months)
-t = np.linspace(0, 10, 200)
+age = np.linspace(25, 70, 100)
+years_after_25 = age - 25
+
+# Start income at 24 years of age (in SEK)
+start_income = 30000
 
 # Income grows linearly
-income_taught = 3000 * t
-income_early_life = 3000 * t
+income_taught = start_income * (1 + 0.02) ** years_after_25
+income_early_life = start_income * (1 + 0.02) ** years_after_25
 
 # Savings
 savings_taught = 0
