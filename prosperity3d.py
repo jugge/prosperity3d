@@ -17,7 +17,7 @@ prosperity = income - cost
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
-ax.plot(income, cost, prosperity, label='Prosperity curve')
+ax.plot(income, cost, prosperity, label='Taught Life Prosperity')
 
 # Axis labels
 ax.set_xlabel('Income')
