@@ -1,31 +1,29 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Ålder från 25 till 70 år
-ålder = np.linspace(25, 70, 1000)
-år_efter_25 = ålder - 25
+# Time (e.g. months)
+t = np.linspace(0, 10, 200)
 
-# Inkomst ökar 2 % per år från 30 000
-startinkomst = 30000
-inkomst = startinkomst * (1 + 0.02) ** år_efter_25
+# Income grows linearly
+income = 3000 * t
 
-# Trappstegskostnad (5000 kr per steg)
-kostnad = np.floor(inkomst / 5000) * 5000
+# Stepped costs (increase in blocks of 5000)
+cost = np.floor(income / 5000) * 5000
 
-# Välstånd = inkomst − kostnad
-välstånd = inkomst - kostnad
+# Prosperity = income − cost
+prosperity = income - cost
 
-# 3D-plot med önskad axelordning
+# 3D plot with wealth as vertical axis (z)
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
-# X = Inkomst, Y = Kostnad, Z = Välstånd
-ax.plot(inkomst, kostnad, välstånd, label='Välståndskurva')
+ax.plot(income, cost, prosperity, label='Prosperity curve')
 
-ax.set_xlabel('Inkomst')
-ax.set_ylabel('Kostnader')
-ax.set_zlabel('Välstånd (Inkomst − Kostnader)')
-ax.set_title('3D-kurva: Välstånd som funktion av Inkomst och Kostnader')
+# Axis labels
+ax.set_xlabel('Income')
+ax.set_ylabel('Cost')
+ax.set_zlabel('Prosperity')
+ax.set_title('3D curve with Prosperity as vertical axis')
 ax.legend()
 
 plt.show()
