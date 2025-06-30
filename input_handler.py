@@ -1,3 +1,11 @@
+"""
+Handles user input for the Prosperity Strategy Visualizer.
+
+Provides UI elements to collect input values such as strategy selection,
+current age, retirement age, and salary.
+"""
+
+
 import tkinter as tk
 from tkinter import ttk
 from strategies.taught_life import TaughtLife

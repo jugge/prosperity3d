@@ -1,3 +1,10 @@
+"""
+Runs the chosen prosperity strategy simulation based on user input.
+
+Responsible for instantiating the strategy class, running it, and returning results.
+"""
+
+
 import numpy as np
 
 def run_simulation(inputs):

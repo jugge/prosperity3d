@@ -1,3 +1,9 @@
+"""
+Handles visual presentation of simulation results using Matplotlib within a Tkinter frame.
+
+Provides methods to clear the canvas and render a 3D plot of the selected strategy.
+"""
+
 import tkinter as tk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg

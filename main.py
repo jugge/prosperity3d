@@ -1,3 +1,9 @@
+"""
+Entry point for the Prosperity Strategy Visualizer.
+
+Initializes the Tkinter app and connects the input, simulation, and presentation layers.
+"""
+
 import tkinter as tk
 from input_handler import InputHandler
 from presentation import Presentation
