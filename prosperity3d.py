@@ -11,6 +11,9 @@ st.title("Prosperity Strategy Simulator")
 st.sidebar.header("Simulation Settings")
 age_range = np.linspace(25, 70, 100)
 start_income = st.sidebar.number_input("Start Income (SEK)", value=30000, step=1000)
+current_age = st.sidebar.number_input("Enter your current age in years", value=25)
+stop_working_age = st.sidebar.number_input("Enter estimated age to stop working", value=67)
+
 
 # Strategy selection
 strategy_options = {
