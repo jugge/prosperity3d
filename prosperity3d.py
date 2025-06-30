@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 from strategies.taught_life import TaughtLife
 from strategies.early_extreme_saving import EarlyExtremeSaving
 
@@ -43,3 +44,8 @@ if st.checkbox("Show raw data"):
         "Cost": results['cost'],
         "Prosperity": results['prosperity']
     })
+
+# Stop button
+if st.button("Stop Streamlit App"):
+    st.write("Shutting down...")
+    st.stop()
