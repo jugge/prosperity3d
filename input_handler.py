@@ -22,6 +22,8 @@ class InputHandler:
         self.current_age_var = tk.IntVar(value=25)
         self.retirement_age_var = tk.IntVar(value=67)
         self.salary_var = tk.IntVar(value=30000)
+        self.savings_var = tk.IntVar(value=0)
+        self.savings_interest_rate_var = tk.IntVar(value=4)
 
         self._create_widgets(root)
 
@@ -33,6 +35,10 @@ class InputHandler:
         ttk.Entry(root, textvariable=self.retirement_age_var).pack()
         ttk.Label(root, text="Enter current salary:").pack()
         ttk.Entry(root, textvariable=self.salary_var).pack()
+        ttk.Label(root, text="Enter current savings amount (SEK):").pack()
+        ttk.Entry(root, textvariable=self.savings_var).pack()
+        ttk.Label(root, text="Enter estimated savings interest rate in percent:").pack()
+        ttk.Entry(root, textvariable=self.savings_interest_rate_var).pack()
 
     def get_inputs(self):
         return {
@@ -40,5 +46,7 @@ class InputHandler:
             "strategy_class": self.strategies[self.strategy_var.get()],
             "current_age": self.current_age_var.get(),
             "retirement_age": self.retirement_age_var.get(),
-            "salary": self.salary_var.get()
+            "salary": self.salary_var.get(),
+            "savings": self.savings_var.get(),
+            "savings_interest_rate": self.savings_interest_rate_var.get()
         }
