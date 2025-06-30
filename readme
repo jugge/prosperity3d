@@ -1,1 +1,9 @@
-pip install matplotlib numpy pyqt6
+# .
+# ├── main.py                 # Entry point
+# ├── input_handler.py        # User input logic
+# ├── presentation.py         # Plotting/presentation logic
+# ├── simulation.py           # Simulation runner (ties strategy to inputs)
+# └── strategies/
+#     ├── __init__.py
+#     ├── taught_life.py
+#     └── early_extreme_saving.py
