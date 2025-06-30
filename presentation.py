@@ -1,7 +1,7 @@
 """
 Handles visual presentation of simulation results using Matplotlib within a Tkinter frame.
 
-Provides methods to clear the canvas and render a 3D plot of the selected strategy.
+Provides methods to clear the canvas and render plots and results for the selected strategy.
 """
 
 import tkinter as tk
@@ -18,14 +18,28 @@ class Presentation:
             widget.destroy()
 
     def plot(self, results, title):
-        fig = plt.figure(figsize=(6, 4))
-        ax = fig.add_subplot(111, projection='3d')
-        ax.plot(results['income'], results['cost'], results['prosperity'])
-        ax.set_xlabel("Income")
-        ax.set_ylabel("Cost")
-        ax.set_zlabel("Prosperity")
-        ax.set_title(f"{title} Strategy")
+        # 3D-plot
+        fig_3d = plt.figure(figsize=(6, 4))
+        ax3d = fig_3d.add_subplot(111, projection='3d')
+        ax3d.plot(results['income'], results['cost'], results['prosperity'])
+        ax3d.set_xlabel("Income")
+        ax3d.set_ylabel("Cost")
+        ax3d.set_zlabel("Prosperity")
+        ax3d.set_title(f"{title} Strategy (3D View)")
 
-        canvas = FigureCanvasTkAgg(fig, master=self.canvas_frame)
-        canvas.draw()
-        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+        canvas_3d = FigureCanvasTkAgg(fig_3d, master=self.canvas_frame)
+        canvas_3d.draw()
+        canvas_3d.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+
+        # 2D-plot: prosperity over time
+        if 'years' in results:
+            fig_2d = plt.figure(figsize=(6, 2.5))
+            ax2d = fig_2d.add_subplot(111)
+            ax2d.plot(results['years'], results['prosperity'])
+            ax2d.set_xlabel("Age")
+            ax2d.set_ylabel("Prosperity")
+            ax2d.set_title(f"{title} Classical Perspective - Disposable Wealth Over Time")
+
+        canvas_2d = FigureCanvasTkAgg(fig_2d, master=self.canvas_frame)
+        canvas_2d.draw()
+        canvas_2d.get_tk_widget().pack(fill=tk.BOTH, expand=True)

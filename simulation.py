@@ -11,4 +11,6 @@ def run_simulation(inputs):
     years = np.linspace(inputs['current_age'], inputs['retirement_age'], 100)
     strategy = inputs['strategy_class'](inputs['strategy_name'], years, inputs['salary'])
     strategy.run()
-    return strategy.results(), inputs['strategy_name']
+    results = strategy.results()
+    results['years'] = years  # Include time axis in results for plotting
+    return results, inputs['strategy_name']
