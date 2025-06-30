@@ -27,6 +27,18 @@ class ProsperityApp:
         strategy_menu = ttk.Combobox(self.root, textvariable=self.strategy_var, values=list(self.strategies.keys()))
         strategy_menu.pack(pady=10)
 
+        # Current age input
+        self.current_age_var = tk.IntVar(value=25)
+        ttk.Label(self.root, text = "Enter you current age:").pack(pady=5)
+        current_age_entry = ttk.Entry(self.root, textvariable=self.current_age_var)
+        current_age_entry.pack(pady=5)
+        
+        # Retirement age input
+        self.retirement_age_var = tk.IntVar(value=67)
+        ttk.Label(self.root, text = "Enter you estimated retirement age:").pack(pady=5)
+        retirement_age_entry = ttk.Entry(self.root, textvariable=self.retirement_age_var)
+        retirement_age_entry.pack(pady=5)
+        
         # Run button
         run_button = tk.Button(self.root, text="Run Simulation", command=self.run_simulation)
         run_button.pack(pady=5)
@@ -41,7 +53,7 @@ class ProsperityApp:
             widget.destroy()
 
         # Strategy setup
-        years = np.linspace(25, 70, 100)
+        years = np.linspace(self.current_age_var.get(), self.retirement_age_var.get(), 100)
         start_income = 30000
         strategy_class = self.strategies[self.strategy_var.get()]
         strategy = strategy_class(self.strategy_var.get(), years, start_income)
