@@ -1,54 +1,68 @@
-import streamlit as st
-import numpy as np
+import tkinter as tk
+from tkinter import ttk
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
-import sys
 from strategies.taught_life import TaughtLife
 from strategies.early_extreme_saving import EarlyExtremeSaving
+import numpy as np
 
-# Streamlit UI
-st.title("Prosperity Strategy Simulator")
+# Tkinter app
+class ProsperityApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Prosperity Strategy Visualizer")
 
-st.sidebar.header("Simulation Settings")
-age_range = np.linspace(25, 70, 100)
-start_income = st.sidebar.number_input("Start Income (SEK)", value=30000, step=1000)
-current_age = st.sidebar.number_input("Enter your current age in years", value=25)
-stop_working_age = st.sidebar.number_input("Enter estimated age to stop working", value=67)
+        # Strategy options
+        self.strategies = {
+            "Taught Life": TaughtLife,
+            "Extreme Saver": EarlyExtremeSaving
+        }
 
+        # UI Elements
+        self.setup_ui()
 
-# Strategy selection
-strategy_options = {
-    "Taught Life": TaughtLife,
-    "Extreme Saver": EarlyExtremeSaving
-}
-selected_strategy_name = st.sidebar.selectbox("Choose Strategy", list(strategy_options.keys()))
-strategy_class = strategy_options[selected_strategy_name]
+    def setup_ui(self):
+        # Dropdown menu
+        self.strategy_var = tk.StringVar(value="Taught Life")
+        strategy_menu = ttk.Combobox(self.root, textvariable=self.strategy_var, values=list(self.strategies.keys()))
+        strategy_menu.pack(pady=10)
 
-# Instantiate and run strategy
-strategy = strategy_class(selected_strategy_name, age_range, start_income)
-strategy.run()
-results = strategy.results()
+        # Run button
+        run_button = tk.Button(self.root, text="Run Simulation", command=self.run_simulation)
+        run_button.pack(pady=5)
 
-# Plot the result in 3D
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.plot(results['income'], results['cost'], results['prosperity'], label=selected_strategy_name)
-ax.set_xlabel("Income")
-ax.set_ylabel("Cost")
-ax.set_zlabel("Prosperity")
-ax.set_title("Strategy: " + selected_strategy_name)
-ax.legend()
+        # Canvas placeholder
+        self.canvas_frame = tk.Frame(self.root)
+        self.canvas_frame.pack(fill=tk.BOTH, expand=True)
 
-st.pyplot(fig)
+    def run_simulation(self):
+        # Clear previous canvas
+        for widget in self.canvas_frame.winfo_children():
+            widget.destroy()
 
-# Optionally: show table
-if st.checkbox("Show raw data"):
-    st.dataframe({
-        "Income": results['income'],
-        "Cost": results['cost'],
-        "Prosperity": results['prosperity']
-    })
+        # Strategy setup
+        years = np.linspace(25, 70, 100)
+        start_income = 30000
+        strategy_class = self.strategies[self.strategy_var.get()]
+        strategy = strategy_class(self.strategy_var.get(), years, start_income)
+        strategy.run()
+        results = strategy.results()
 
-# Stop button
-if st.button("Stop Streamlit App"):
-    st.write("Shutting down...")
-    st.stop()
+        # Plotting
+        fig = plt.figure(figsize=(6, 4))
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot(results['income'], results['cost'], results['prosperity'])
+        ax.set_xlabel("Income")
+        ax.set_ylabel("Cost")
+        ax.set_zlabel("Prosperity")
+        ax.set_title(f"{strategy.name} Strategy")
+
+        canvas = FigureCanvasTkAgg(fig, master=self.canvas_frame)
+        canvas.draw()
+        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+
+# Run the app
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = ProsperityApp(root)
+    root.mainloop()
