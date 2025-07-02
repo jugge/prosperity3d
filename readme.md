@@ -12,23 +12,25 @@ It is not possible to put the outside world inside a piece of software. Only a r
 
 This piece of software is not the outside world. It is a representation of the outside world. It is not the entity. It is a representation of the entity.
 
+
+
 # Roles
 
 Entities likes to take on roles. It simplifies the rules how the should interact with other entities and behave in the outside world.
 Some roles are offered by the outside world. Some roles are new. A result of the outside worlds inputs being scrambled into something new.
 
-#  Full-time employee
-Certain jobs require certain skills and attributes. It is possible to work with a job where you do not fulfill the requirements, but it might have consequences on e.g. stress level.
-
-# Part time employee
-# Student
-# Retired
-# Parent
-# Spouse
-# Child
-# Enthusiast - gardener, recreational exerciser, amateur musician, DIY hobbyist
-# Community organizer - nonprofit group member, scout leader, activist, soccer coach for kids team
-# Credential Role - Academic degree, 
+| Role                | Notes                                                                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Full-time employee  | Certain jobs require certain skills and attributes. It is possible to work with a job where you do not fulfill the requirements, but it might have consequences on e.g. stress level. |
+| Part-time employee  |                                                                                                                                                                                       |
+| Student             |                                                                                                                                                                                       |
+| Retired             |                                                                                                                                                                                       |
+| Parent              |                                                                                                                                                                                       |
+| Spouse              |                                                                                                                                                                                       |
+| Child               |                                                                                                                                                                                       |
+| Enthusiast          | Gardener, recreational exerciser, amateur musician, DIY hobbyist                                                                                                                      |
+| Community organizer | Nonprofit group member, scout leader, activist, soccer coach for kids team                                                                                                            |
+| Credential Role     | Academic degree                                                                                                                                                                       |
 
 # Attributes
 
