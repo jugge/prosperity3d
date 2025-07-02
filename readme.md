@@ -14,6 +14,7 @@ This piece of software is not the outside world. It is a representation of the o
 
 # Structure
 
+```
 trueprosperity/
 ├── core/
 │   ├── entity.py              # Defines the Entity class: age, roles, snapshots
@@ -48,4 +49,4 @@ trueprosperity/
 │
 ├── README.md
 └── pyproject.toml
-
+```
