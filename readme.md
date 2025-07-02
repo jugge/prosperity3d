@@ -12,41 +12,98 @@ It is not possible to put the outside world inside a piece of software. Only a r
 
 This piece of software is not the outside world. It is a representation of the outside world. It is not the entity. It is a representation of the entity.
 
-# Structure
+# Roles
+
+Entities likes to take on roles. It simplifies the rules how the should interact with other entities and behave in the outside world.
+Some roles are offered by the outside world. Some roles are new. A result of the outside worlds inputs being scrambled into something new.
+
+#  Full-time employee
+Certain jobs require certain skills and attributes. It is possible to work with a job where you do not fulfill the requirements, but it might have consequences on e.g. stress level.
+
+# Part time employee
+# Student
+# Retired
+# Parent
+# Spouse
+# Child
+# Enthusiast - gardener, recreational exerciser, amateur musician, DIY hobbyist
+# Community organizer - nonprofit group member, scout leader, activist, soccer coach for kids team
+# Credential Role - Academic degree, 
+
+# Attributes
+
+## Age
+The entity is connected to a body. The body changes. Th
+
+## Energy
+Roles consume or generate energy. Why and how is not always clear. The only way to know is to continuosly be aware of energy levels via other systems.
+
+## Stress
+
+## Mental Capacity
+
+# Skills
+
+## Awareness
+Being aware is a skill. It can be learned. By being aware if is easier to directly see things that might otherwise be harder to see.
+
+## Occupational skill
+Spending time with a task reinforces cognitive patterns. After a lot of time with a task the task will become automatic. It is often interpreted as skill.
+
+# Resources
+
+## Money
 
 ```
 trueprosperity/
-├── core/
-│   ├── entity.py              # Defines the Entity class: age, roles, snapshots
-│   ├── role.py                # Role and RoleTemplate logic: value contribution, resource needs
-│   ├── resources.py           # Defines the Resources class: time, money, emotional_energy
-│   ├── snapshot.py            # YearSnapshot and Consequence classes
-│   └── environment.py         # The World / Environment simulation context
+├── core/                    # Fundamental domain logic (Entity, Role, Resources, etc.)
+│   ├── entity.py
+│   ├── role.py
+│   ├── resources.py
+│   ├── snapshot.py
+│   └── environment.py
 │
-├── simulation/
-│   ├── engine.py              # Main simulation loop: advances time, updates world and entities
-│   ├── policies.py            # Global rulesets: e.g. economic systems, welfare models
-│   └── events.py              # Major global events: pandemics, wars, climate shifts
+├── simulation/             # Engine logic: time progression, policies, events
+│   ├── engine.py
+│   ├── policies.py
+│   └── events.py
+│
+├── tools/                  # Individual tools built on top of core/simulation
+│   ├── prosperity3d/       # Tool 1: Single-strategy lifetime simulation with visualization
+│   │   ├── main.py
+│   │   ├── strategy_selector.py
+│   │   └── plotter.py
+│   │
+│   ├── lifepath_game/      # Tool 2: Game-like simulation with unlockable paths
+│   │   ├── main.py
+│   │   ├── game_state.py
+│   │   └── ui_logic.py
+│   │
+│   └── worldsim/           # Tool 3: Multi-entity world-scale simulation
+│       ├── main.py
+│       ├── population_init.py
+│       └── pattern_analysis.py
 │
 ├── data/
-│   ├── initial_entities.json  # Starting configuration for simulated population
-│   ├── role_templates.json    # Definitions for available role types in the world
-│   └── world_config.yaml      # World settings: starting year, parameters, constraints
+│   ├── initial_entities.json
+│   ├── role_templates.json
+│   └── world_config.yaml
 │
 ├── analysis/
-│   ├── visualizer.py          # Tools for plotting resource flows, roles, value over time
-│   ├── metrics.py             # System-wide indicators: wellbeing, survival, stagnation
-│   └── experiments.py         # Code for running different configurations and comparing them
+│   ├── visualizer.py
+│   ├── metrics.py
+│   └── experiments.py
 │
 ├── cli/
-│   └── run_simulation.py      # Command-line interface for running and exporting simulations
+│   └── run_simulation.py
 │
 ├── notebooks/
-│   └── exploration.ipynb      # Jupyter notebook for fast prototyping and hypothesis testing
+│   └── exploration.ipynb
 │
 ├── tests/
-│   └── test_simulation.py     # Unit tests for the main logic
+│   └── test_simulation.py
 │
 ├── README.md
 └── pyproject.toml
+
 ```
