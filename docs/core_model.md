@@ -2,62 +2,75 @@
 
 ```mermaid
 classDiagram
-  class World {
-    +year: int
-    +entities: List~Entity~
-    +global_factors: List~Consequence~
-    +available_roles: List~RoleTemplate~
-    +simulate_year(): void
-  }
-
   class Entity {
     +id: str
-    +age: int
-    +savings: float
-    +retirement_funds: float
     +roles: List~Role~
+    +attributes: Attributes
+    +skills: Skills
+    +resources: Resources
     +history: List~YearSnapshot~
     +choose_roles(environment): void
     +react_to_consequences(conseqs): void
   }
 
-  class RoleTemplate {
+  class Role {
     +name: str
-    +base_value(): float
-    +resource_costs(): Resources
+    +notes: str
+    +requirements: List~Requirement~
+    +possible_consequences: List~Consequence~
+    +consume_resources(entity: Entity): void
   }
 
-  class Role {
-    +get_time_demand(year: int): float
-    +get_value_contribution(year: int): float
-    +get_resource_requirements(year: int): Resources
+  class Attributes {
+    +age: int
+    +energy: float
+    +stress: float
+    +mental_capacity: float
+  }
+
+  class Skills {
+    +awareness: float
+    +occupational_skill: float
   }
 
   class Resources {
-    +time: float
     +money: float
-    +emotional_energy: float
+  }
+
+  class Requirement {
+    +type: str
+    +value: any
   }
 
   class YearSnapshot {
     +year: int
-    +total_spent_time: float
-    +total_value: float
+    +spent_time: float
     +resource_balance: Resources
     +consequences: List~Consequence~
   }
 
   class Consequence {
     +description: str
-    +impact_on_roles(): void
-    +impact_on_capacities(): void
+    +impact_on_roles(entity: Entity): void
+    +impact_on_attributes(entity: Entity): void
   }
 
-  World --> Entity
-  World --> RoleTemplate
-  World --> Consequence
-  Entity --> YearSnapshot
+  class World {
+    +year: int
+    +entities: List~Entity~
+    +global_factors: List~Consequence~
+    +available_roles: List~Role~
+    +simulate_year(): void
+  }
+
   Entity --> Role
-  Role --> Resources
+  Entity --> Attributes
+  Entity --> Skills
+  Entity --> Resources
+  Entity --> YearSnapshot
+  Role --> Requirement
   YearSnapshot --> Resources
   YearSnapshot --> Consequence
+  World --> Entity
+  World --> Role
+  World --> Consequence
