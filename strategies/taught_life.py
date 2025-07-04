@@ -1,13 +1,11 @@
-from strategies.base import Strategy
-import numpy as np
+class TaughtLife:
+    def __init__(self, name):
+        self.name = name
 
-class TaughtLife(Strategy):
-    def run(self):
-        for year in self.years:
-            income = self.start_income * (1.02) ** (year - self.years[0])
-            cost = np.floor(income / 5000) * 5000
-            prosperity = income - cost
-
-            self.income.append(income)
-            self.cost.append(cost)
-            self.prosperity.append(prosperity)
+    def run(self, world):
+        # Dummystrategi som visar upp världens tillstånd
+        results = {
+            "year": world.calender_year,
+            "ages": [id.entity_ref.biological_age for id in world.identities]
+        }
+        return results
