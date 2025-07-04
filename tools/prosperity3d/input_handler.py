@@ -2,9 +2,8 @@
 Handles user input for the Prosperity Strategy Visualizer.
 
 Provides UI elements to collect input values such as strategy selection,
-current age, retirement age, and salary.
+calendar year and birth year.
 """
-
 
 import tkinter as tk
 from tkinter import ttk
@@ -19,34 +18,25 @@ class InputHandler:
         }
 
         self.strategy_var = tk.StringVar(value="Taught Life")
-        self.current_age_var = tk.IntVar(value=25)
-        self.retirement_age_var = tk.IntVar(value=67)
-        self.salary_var = tk.IntVar(value=30000)
-        self.savings_var = tk.IntVar(value=0)
-        self.savings_interest_rate_var = tk.IntVar(value=4)
+        self.calender_year_var = tk.IntVar(value=2025)
+        self.birth_year_var = tk.IntVar(value=1978)
 
         self._create_widgets(root)
 
     def _create_widgets(self, root):
+        ttk.Label(root, text="Select strategy:").pack()
         ttk.Combobox(root, textvariable=self.strategy_var, values=list(self.strategies.keys())).pack(pady=10)
-        ttk.Label(root, text="Enter your current age:").pack()
-        ttk.Entry(root, textvariable=self.current_age_var).pack()
-        ttk.Label(root, text="Enter estimated retirement age:").pack()
-        ttk.Entry(root, textvariable=self.retirement_age_var).pack()
-        ttk.Label(root, text="Enter current salary:").pack()
-        ttk.Entry(root, textvariable=self.salary_var).pack()
-        ttk.Label(root, text="Enter current savings amount (SEK):").pack()
-        ttk.Entry(root, textvariable=self.savings_var).pack()
-        ttk.Label(root, text="Enter estimated savings interest rate in percent:").pack()
-        ttk.Entry(root, textvariable=self.savings_interest_rate_var).pack()
+
+        ttk.Label(root, text="Enter calendar year (simulation starts):").pack()
+        ttk.Entry(root, textvariable=self.calender_year_var).pack()
+
+        ttk.Label(root, text="Enter birth year of the person:").pack()
+        ttk.Entry(root, textvariable=self.birth_year_var).pack()
 
     def get_inputs(self):
         return {
             "strategy_name": self.strategy_var.get(),
             "strategy_class": self.strategies[self.strategy_var.get()],
-            "current_age": self.current_age_var.get(),
-            "retirement_age": self.retirement_age_var.get(),
-            "salary": self.salary_var.get(),
-            "savings": self.savings_var.get(),
-            "savings_interest_rate": self.savings_interest_rate_var.get()
+            "calender_year": self.calender_year_var.get(),
+            "birth_year": self.birth_year_var.get()
         }

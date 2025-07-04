@@ -4,13 +4,17 @@ Runs the chosen prosperity strategy simulation based on user input.
 Responsible for instantiating the strategy class, running it, and returning results.
 """
 
-
-import numpy as np
+from core.model import Entity, Identity, CollectiveMap
 
 def run_simulation(inputs):
-    years = np.linspace(inputs['current_age'], inputs['retirement_age'], 100)
-    strategy = inputs['strategy_class'](inputs['strategy_name'], years, inputs['salary'])
-    strategy.run()
-    results = strategy.results()
-    results['years'] = years  # Include time axis in results for plotting
+    # Initiera objekt enligt modellen
+    entity = Entity(biological_age=inputs['calender_year'] - inputs['birth_year'])
+    identity = Identity(entity_ref=entity, birth_year=inputs['birth_year'])
+    world = CollectiveMap(calender_year=inputs['calender_year'], identities=[identity])
+
+    # Initiera och kör strategi
+    strategy = inputs['strategy_class'](inputs['strategy_name'])
+    results = strategy.run(world)
+
     return results, inputs['strategy_name']
+

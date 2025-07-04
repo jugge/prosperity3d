@@ -18,28 +18,38 @@ class Presentation:
             widget.destroy()
 
     def plot(self, results, title):
-        # 3D-plot
-        fig_3d = plt.figure(figsize=(6, 4))
-        ax3d = fig_3d.add_subplot(111, projection='3d')
-        ax3d.plot(results['income'], results['cost'], results['prosperity'])
-        ax3d.set_xlabel("Income")
-        ax3d.set_ylabel("Cost")
-        ax3d.set_zlabel("Prosperity")
-        ax3d.set_title(f"{title} Strategy (3D View)")
+        self.clear()
 
-        canvas_3d = FigureCanvasTkAgg(fig_3d, master=self.canvas_frame)
-        canvas_3d.draw()
-        canvas_3d.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+        # 3D-plot
+        if all(key in results for key in ['income', 'cost', 'prosperity']):
+            fig_3d = plt.figure(figsize=(6, 4))
+            ax3d = fig_3d.add_subplot(111, projection='3d')
+            ax3d.plot(results['income'], results['cost'], results['prosperity'])
+            ax3d.set_xlabel("Income")
+            ax3d.set_ylabel("Cost")
+            ax3d.set_zlabel("Prosperity")
+            ax3d.set_title(f"{title} Strategy (3D View)")
+            canvas_3d = FigureCanvasTkAgg(fig_3d, master=self.canvas_frame)
+            canvas_3d.draw()
+            canvas_3d.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
         # 2D-plot: prosperity over time
-        if 'years' in results:
+        elif 'years' in results and 'prosperity' in results:
             fig_2d = plt.figure(figsize=(6, 2.5))
             ax2d = fig_2d.add_subplot(111)
             ax2d.plot(results['years'], results['prosperity'])
-            ax2d.set_xlabel("Age")
+            ax2d.set_xlabel("Year")
             ax2d.set_ylabel("Prosperity")
             ax2d.set_title(f"{title} Classical Perspective - Disposable Wealth Over Time")
+            canvas_2d = FigureCanvasTkAgg(fig_2d, master=self.canvas_frame)
+            canvas_2d.draw()
+            canvas_2d.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
-        canvas_2d = FigureCanvasTkAgg(fig_2d, master=self.canvas_frame)
-        canvas_2d.draw()
-        canvas_2d.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+        # Fallback: visa text
+        elif 'ages' in results:
+            text_frame = tk.Label(self.canvas_frame, text=f"Entity ages: {results['ages']}")
+            text_frame.pack(pady=20)
+
+        else:
+            error_label = tk.Label(self.canvas_frame, text="No plottable data returned from strategy.")
+            error_label.pack(pady=20)
