@@ -1,0 +1,7 @@
+name: full-time-employee
+category: Provider
+resources:
+  time: -10           # hours per day
+  money: +360000        # SEK per year
+  emotional_energy: -3
+value_contribution: 5

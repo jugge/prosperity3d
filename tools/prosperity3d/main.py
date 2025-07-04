@@ -5,9 +5,9 @@ Initializes the Tkinter app and connects the input, simulation, and presentation
 """
 
 import tkinter as tk
-from input_handler import InputHandler
-from presentation import Presentation
-from simulation import run_simulation
+from tools.prosperity3d.input_handler import InputHandler
+from tools.prosperity3d.presentation import Presentation
+from simulation.engine import run_simulation
 
 class ProsperityApp:
     def __init__(self, root):
