@@ -13,30 +13,31 @@ end
 ```
 
 
+Reality is not a class.
+Reality is where all classes exist.
+
+to manifest something is to take it from the internal map and change things in reality. i.e. manifest from internal map to Reality
+to integrate something is let reality update the internal map
+
+
+
 ```mermaid
-classDiagram
-    Animal <|-- Duck
-    Animal <|-- Fish
-    Animal <|-- Zebra
-    Animal : +int age
-    Animal : +String gender
-    Animal: +isMammal()
-    Animal: +mate()
-    class Reality{
-      +String beakColor
-      +swim()
-      +quack()
+%% Entity is an actor within Reality
+%% InternalMap is a part of Entity
+%% SelfImage lives within the map
+
+classDiagram    
+	class Entity{
+      -manifest()
+	  -integrate()
     }
-    class Entity{
-      -int sizeInFeet
-      -canEat()
+    
+	class InternalMap{
     }
-    class InternalMap{
-      +bool is_wild
-      +run()
-    }
-    class InternalMap{
-      +bool is_wild
-      +run()
-    }
+	
+	class SelfImage {
+	}
+	     
+	Entity *-- InternalMap
+	InternalMap *-- SelfImage
 ```
