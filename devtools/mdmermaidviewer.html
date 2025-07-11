@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>True Viewer</title>
+  <style>
+    body { font-family: sans-serif; max-width: 900px; margin: 2em auto; padding: 1em; }
+    pre { background: #f0f0f0; padding: 1em; overflow-x: auto; }
+    #output svg { max-width: 100%; }
+    #status { font-size: 0.9em; color: #888; margin-top: 1em; }
+    button { margin-top: 1em; padding: 0.5em 1em; font-size: 1em; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <h1>👁 True Viewer</h1>
+  <button id="chooseBtn">📂 Välj fil</button>
+  <button id="lookBtn" disabled>👀 Look</button>
+  <label><input type="checkbox" id="autoToggle" /> 🔄 Auto</label>
+  <div id="output"></div>
+  <div id="status">Ingen fil vald.</div>
+
+  <script>
+    const md = window.markdownit({
+      highlight: (str, lang) => {
+        if (lang === 'mermaid') {
+          return `<pre class="mermaid">${str}</pre>`;
+        }
+        return `<pre><code>${md.utils.escapeHtml(str)}</code></pre>`;
+      }
+    });
+
+    let fileHandle = null;
+    let lastText = '';
+    let autoTimer = null;
+
+    async function renderFile() {
+      if (!fileHandle) return;
+      const file = await fileHandle.getFile();
+      const text = await file.text();
+      if (text !== lastText) {
+        lastText = text;
+        const html = md.render(text);
+        const output = document.getElementById('output');
+        output.innerHTML = html;
+        mermaid.initialize({ startOnLoad: false });
+        mermaid.init(undefined, output.querySelectorAll('.mermaid'));
+        document.getElementById('status').innerText =
+          `Visar: ${file.name} — uppdaterad ${new Date().toLocaleTimeString()}`;
+      }
+    }
+
+    document.getElementById('chooseBtn').addEventListener('click', async () => {
+      try {
+        [fileHandle] = await window.showOpenFilePicker({
+          types: [{ description: 'Markdown', accept: { 'text/markdown': ['.md', '.markdown', '.txt'] } }]
+        });
+        document.getElementById('lookBtn').disabled = false;
+        await renderFile();
+
+        if (document.getElementById('autoToggle').checked) {
+          startAutoUpdate();
+        }
+      } catch (e) {
+        console.warn('Ingen fil vald');
+      }
+    });
+
+    document.getElementById('lookBtn').addEventListener('click', () => {
+      renderFile();
+    });
+
+    document.getElementById('autoToggle').addEventListener('change', (e) => {
+      if (e.target.checked) {
+        startAutoUpdate();
+      } else {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    });
+
+    function startAutoUpdate() {
+      if (autoTimer) clearInterval(autoTimer);
+      autoTimer = setInterval(() => {
+        renderFile();
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
